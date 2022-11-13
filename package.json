@@ -1,7 +1,7 @@
 {
-  "name": "@stoplight/spectral-url-versioning",
+  "name": "@stoplight/spectral-documentation",
   "version": "0.0.0",
-  "description": "There's no one right way to version, but there's a lot of objectively bad ways you want to avoid.",
+  "description": "Your documentation is only as useful as the quality of the information you've provided, so make sure you're taking full advantage of the features OpenAPI has to offer.",
   "main": "dist/ruleset.js",
   "module": "dist/ruleset.mjs",
   "type": "commonjs",
@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/stoplightio/spectral-url-versioning.git"
+    "url": "git+https://github.com/stoplightio/spectral-documentation.git"
   },
   "keywords": [
     "openapi",
@@ -33,9 +33,9 @@
   "author": "Phil Sturgeon <phil@stoplight.io>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/stoplightio/spectral-url-versioning/issues"
+    "url": "https://github.com/stoplightio/spectral-documentation/issues"
   },
-  "homepage": "https://github.com/stoplightio/spectral-url-versioning#readme",
+  "homepage": "https://github.com/stoplightio/spectral-documentation#readme",
   "dependencies": {
     "@stoplight/spectral-formats": "^1.2.0",
     "@stoplight/spectral-functions": "^1.6.1"

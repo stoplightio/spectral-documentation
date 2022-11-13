@@ -1,13 +1,13 @@
-# Spectral API Versioning Ruleset
+# Spectral Documentation Ruleset
 
-[![NPM Downloads](https://img.shields.io/npm/dw/@stoplight/spectral-url-versioning?color=blue)](https://www.npmjs.com/package/@stoplight/spectral-url-versioning) [![Stoplight Forest](https://img.shields.io/ecologi/trees/stoplightinc)][stoplight_forest]
+[![NPM Downloads](https://img.shields.io/npm/dw/@stoplight/spectral-documentation?color=blue)](https://www.npmjs.com/package/@stoplight/spectral-documentation) [![Stoplight Forest](https://img.shields.io/ecologi/trees/stoplightinc)][stoplight_forest]
 
-Scan an [OpenAPI](https://spec.openapis.org/oas/v3.1.0) document to detect security issues. As OpenAPI is only describing the surface level of the API it cannot see what is happening in your code, but it can spot obvious issues and outdated standards being used.
+Scan an [OpenAPI](https://spec.openapis.org/oas/v3.1.0) description to make sure you're leveraging enough of its features to help documentation tools like Stoplight Elements, ReDoc, and Swagger UI build the best quality API Reference Documentation possible. 
 
 ## Installation
 
 ``` bash
-npm install --save -D @stoplight/spectral-url-versioning
+npm install --save -D @stoplight/spectral-documentation
 npm install --save -D @stoplight/spectral-cli
 ```
 
@@ -19,13 +19,13 @@ Create a local ruleset that extends the ruleset. In its most basic form this jus
 ```
 cd ~/src/<your-api>
 
-echo 'extends: ["@stoplight/spectral-url-versioning"]' > .spectral.yaml
+echo 'extends: ["@stoplight/spectral-documentation"]' > .spectral.yaml
 ```
 
 _If you're using VS Code or Stoplight Studio then the NPM modules will not be available. Instead you can use the CDN hosted version:_
 
 ```
-echo 'extends: ["https://unpkg.com/@stoplight/spectral-url-versioning@1.0.0/dist/ruleset.js"]' > .spectral.yaml
+echo 'extends: ["https://unpkg.com/@stoplight/spectral-documentation@1.0.0/dist/ruleset.js"]' > .spectral.yaml
 ```
 
 _**Note:** You need to use the full URL with CDN hosted rulesets because Spectral [cannot follow redirects through extends](https://github.com/stoplightio/spectral/issues/2266)._
