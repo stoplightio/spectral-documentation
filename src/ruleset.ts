@@ -109,6 +109,46 @@ export default {
       },
     },
 
+    'docs-parameters-anything-useful': {
+      description: 'In order to make a good sample request doc tools will need an x-example, default, enum, or maybe even a format. The more information you can provide the more useful the sample request will be.',
+      severity: DiagnosticSeverity.Error,
+      format: [oas2],
+      given: '$.paths[*][*]..parameters[?(@ && @.in != body)',
+      then: {
+        function: schema,
+        functionOption: {
+          schema: {
+            oneOf: [
+              { required: ['x-example'] },
+              { required: ['example'] },
+              { required: ['default'] },
+              { required: ['enum'] },
+              { required: ['format'] },
+            ]
+          }
+        }
+      },
+    },
+
+    'docs-parameters-examples-or-schema': {
+      description: 'Without providing a well defined schema or example(s) an API consumer will have a hard time knowing how to interact with this API.',
+      severity: DiagnosticSeverity.Error,
+      format: [oas3],
+      given: '$.paths[*][*]..parameters[*]',
+      then: {
+        function: schema,
+        functionOption: {
+          schema: {
+            oneOf: [
+              { required: ['example'] },
+              { required: ['examples'] },
+              { required: ['schema'] },
+            ]
+          }
+        }
+      },
+    },
+
     'docs-tags-alphabetical': {
       message: "Tags should be defined in alphabetical order",
       description: 'Many documentation tools show tags in the order they are defined, so defining them not in alphabetical order can look funny to API consumers.',
