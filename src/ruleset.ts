@@ -10,6 +10,7 @@ export default {
   // ],
 
   aliases: {
+    
     // OAS Aliases
     // TODO Remove these once they're available in spectral:oas
     PathItem: ['$.paths[*]'],
@@ -26,6 +27,26 @@ export default {
         {
           formats: [oas3],
           given: ['$.components.schemas[*]'],
+        }
+      ]
+    },
+
+    MediaTypeObjects: {
+      description: "Shared schemas (a.k.a Models) are the main domain models and need to be well documented.",
+      targets: [
+        {
+          formats: [oas2],
+          given: [
+            '$.paths[*][*]..parameters[?(@ && @.in == "body")]',
+            '$.paths[*][*].responses[*]',
+          ],
+        },
+        {
+          formats: [oas3],
+          given: [
+            '$.paths[*][*].requestBody.content[*]',
+            '$.paths[*][*].responses[*].content[*]',
+          ],
         }
       ]
     },
@@ -99,6 +120,20 @@ export default {
       ]
     },
     
+    /**
+     * @author: Phil Sturgeon <https://github.com/philsturgeon>
+     */
+    'docs-schema-description': {
+      message: "Schemas should contain descriptions.",
+      description: "API consumers have less context than the API developers, so providing high quality descriptions of shared schemas (a.k.a Models or Definitions) can help a lot. Explain what this schema is, in terms useful to an API consumer who might be coming across these terms for the first time, or might assume a different meaning to the one intended.",
+      severity: DiagnosticSeverity.Warning,
+      given: "#SharedSchemaObjects",
+      then: {
+        field: 'description',
+        function: truthy,
+      }
+    },
+
     'docs-info-contact': {
       description: 'Providing contact means that API consumers can get in touch with you, which can be confusing even if you all work at the same company. This could be a specific developer or a team, depending on the organization.',
       severity: DiagnosticSeverity.Warning,
@@ -110,13 +145,14 @@ export default {
     },
 
     'docs-parameters-anything-useful': {
+      message: "No example or schema provided for {{property}}",
       description: 'In order to make a good sample request doc tools will need an x-example, default, enum, or maybe even a format. The more information you can provide the more useful the sample request will be.',
       severity: DiagnosticSeverity.Error,
       format: [oas2],
-      given: '$.paths[*][*]..parameters[?(@ && @.in != body)',
+      given: '$.paths[*][*]..parameters[?(@ && @.in != "body")]',
       then: {
         function: schema,
-        functionOption: {
+        functionOptions: {
           schema: {
             oneOf: [
               { required: ['x-example'] },
@@ -131,13 +167,34 @@ export default {
     },
 
     'docs-parameters-examples-or-schema': {
+      message: "No example or schema provided for {{property}}",
       description: 'Without providing a well defined schema or example(s) an API consumer will have a hard time knowing how to interact with this API.',
       severity: DiagnosticSeverity.Error,
       format: [oas3],
       given: '$.paths[*][*]..parameters[*]',
       then: {
         function: schema,
-        functionOption: {
+        functionOptions: {
+          schema: {
+            oneOf: [
+              { required: ['example'] },
+              { required: ['examples'] },
+              { required: ['schema'] },
+            ]
+          }
+        }
+      },
+    },
+
+    'docs-media-types-examples-or-schema': {
+      message: "No example or schema provided for {{property}}",
+      description: 'To generate useful API reference documentation a sample request and response should be provided, which can either be provided statically as an "example", or tooling can infer a sample from the schema provided (and any examples, defaults, enums, etc. provided for each property). Please provide one or the other. Both would be fantastic.',
+      severity: DiagnosticSeverity.Error,
+      format: [oas3],
+      given: '#MediaTypeObjects',
+      then: {
+        function: schema,
+        functionOptions: {
           schema: {
             oneOf: [
               { required: ['example'] },
@@ -164,10 +221,10 @@ export default {
     },
 
     'docs-operationId-valid-in-url': {
-      message: 'operationId must not characters that are invalid when used in URL.',
+      message: 'operationId must be URL friendly.',
       description: 'Most documentation tools use the operationId to produce URLs, so the characters used must be URL friendly.',
-      given: '#OperationObject',
       severity: DiagnosticSeverity.Error,
+      given: '#OperationObject',
       then: {
         field: 'operationId',
         function: pattern,
@@ -178,7 +235,8 @@ export default {
     },
 
     'docs-operation-tags': {
-      description: 'Operation must have non-empty `tags` array.',
+      message: 'Operation should have non-empty `tags` array.',
+      description: 'Tags help group logic into conceptual groups instead of making end-users dig through URLs or lists of operation names.',
       severity: DiagnosticSeverity.Warning,
       given: '#OperationObject',
       then: {
@@ -193,22 +251,5 @@ export default {
       },
     },
 
-    /**
-     * @author: Phil Sturgeon <https://github.com/philsturgeon>
-     */
-    'docs-schema-description': {
-      message: "Schemas should contain descriptions.",
-      description: "API consumers have less context than the API developers, so providing high quality descriptions of shared schemas (a.k.a Models or Definitions) can help a lot. Explain what this schema is, in terms useful to an API consumer who might be coming across these terms for the first time, or might assume a different meaning to the one intended.",
-      severity: DiagnosticSeverity.Warning,
-      given: "#SharedSchemaObjects",
-      then: {
-        field: 'description',
-        function: truthy,
-      }
-    },
-
-    // ### Grammar check
-
-    // https://github.com/api-stuff/spectral-spelling-grammar
   },
 };
