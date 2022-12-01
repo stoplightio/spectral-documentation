@@ -11,14 +11,44 @@ export default {
 
   aliases: {
     
-    // OAS Aliases
+    // --- OAS Aliases ---
     // TODO Remove these once they're available in spectral:oas
     PathItem: ['$.paths[*]'],
     OperationObject: ['#PathItem[get,put,post,delete,options,head,patch,trace]'],
 
-    // Custom Aliases
+    // --- Custom Aliases --- 
+
+    DescribableObjects: {
+      description: "All objects that should be described.",
+      targets: [
+        {
+          formats: [oas2],
+          given: [
+            '$.info',
+            '$.tags[*]',
+            '#OperationObject',
+            '$.paths[*][*].responses[*]',
+            '$..parameters[?(@ && @.in)]',
+            '$.definitions[*]',
+          ],
+        },
+        {
+          formats: [oas3],
+          given: [
+            '$.info',
+            '$.tags[*]',
+            '#OperationObject',
+            '$.paths[*][*].responses[*]',
+            '$..parameters[?(@ && @.in)]',
+            '$.components.schemas[*]',
+            '$.servers[*]',
+          ],
+        }
+      ]
+    },
+
     SharedSchemaObjects: {
-      description: "Shared schemas (a.k.a Models) are the main domain models and need to be well documented.",
+      description: "Shared schemas (a.k.a Models) are the main domain objects which are referenced elsewhere.",
       targets: [
         {
           formats: [oas2],
@@ -32,7 +62,7 @@ export default {
     },
 
     MediaTypeObjects: {
-      description: "Shared schemas (a.k.a Models) are the main domain models and need to be well documented.",
+      description: "Media Type objects are what OpenAPI calls the object that describes requests and responses, or in OAS2 it was parameters with in=body.",
       targets: [
         {
           formats: [oas2],
@@ -50,36 +80,6 @@ export default {
         }
       ]
     },
-
-    DescribableObjects: {
-      description: "All objects that should be described.",
-      targets: [
-        {
-          formats: [oas2],
-          given: [
-            '$.info',
-            '$.tags[*]',
-            '#OperationObject',
-            '$.paths[*][*].responses[*]',
-            '$..parameters[?(@ && @.in)]',
-          ],
-        },
-        {
-          formats: [oas3],
-          given: [
-            '$.info',
-            '$.tags[*]',
-            '#OperationObject',
-            '$.paths[*][*].responses[*]',
-            '$..parameters[?(@ && @.in)]',
-            '$.definitions[*]',
-            '$.components.schemas[*]',
-            '$.servers[*]',
-          ],
-        }
-      ]
-    },
-
   },
 
   rules: {
@@ -88,6 +88,7 @@ export default {
      * @author: Phil Sturgeon <https://github.com/philsturgeon>
      */
     'docs-descriptions': {
+      message: "Everything should contain descriptions.",
       description: "Documentation tools use description to provide more context to users of the API who are not as familiar with the concepts as the API designers are.",
       severity: DiagnosticSeverity.Warning,
       given: "#DescribableObjects",
