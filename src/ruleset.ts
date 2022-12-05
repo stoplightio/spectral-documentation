@@ -88,7 +88,7 @@ export default {
      * @author: Phil Sturgeon <https://github.com/philsturgeon>
      */
     'docs-descriptions': {
-      message: "Everything should contain descriptions.",
+      message: "{{error}}.",
       description: "Documentation tools use description to provide more context to users of the API who are not as familiar with the concepts as the API designers are.",
       severity: DiagnosticSeverity.Warning,
       given: "#DescribableObjects",
@@ -108,7 +108,7 @@ export default {
           field: 'description',
           function: pattern,
           functionOptions: {
-            match: '.$'
+            match: '\.$'
           }
         },
         {
@@ -129,10 +129,33 @@ export default {
       description: "API consumers have less context than the API developers, so providing high quality descriptions of shared schemas (a.k.a Models or Definitions) can help a lot. Explain what this schema is, in terms useful to an API consumer who might be coming across these terms for the first time, or might assume a different meaning to the one intended.",
       severity: DiagnosticSeverity.Warning,
       given: "#SharedSchemaObjects",
-      then: {
-        field: 'description',
-        function: truthy,
-      }
+      then: [
+        {
+          field: 'description',
+          function: truthy,
+        },
+        {
+          field: 'description',
+          function: length,
+          functionOptions: {
+            min: 20
+          }
+        },
+        {
+          field: 'description',
+          function: pattern,
+          functionOptions: {
+            match: '\.$'
+          }
+        },
+        {
+          field: 'description',
+          function: pattern,
+          functionOptions: {
+            match: '/^[A-Z]/'
+          }
+        },
+      ],
     },
 
     'docs-info-contact': {
@@ -149,8 +172,9 @@ export default {
       message: "No example or schema provided for {{property}}",
       description: 'In order to make a good sample request doc tools will need an x-example, default, enum, or maybe even a format. The more information you can provide the more useful the sample request will be.',
       severity: DiagnosticSeverity.Error,
-      format: [oas2],
-      given: '$.paths[*][*]..parameters[?(@ && @.in != "body")]',
+      formats: [oas2],
+      // given: '$.paths[*][*]..parameters[?(@ && @.in != "body")]',
+      given: '$.paths[*][*]..parameters',
       then: {
         function: schema,
         functionOptions: {
@@ -171,7 +195,7 @@ export default {
       message: "No example or schema provided for {{property}}",
       description: 'Without providing a well defined schema or example(s) an API consumer will have a hard time knowing how to interact with this API.',
       severity: DiagnosticSeverity.Error,
-      format: [oas3],
+      formats: [oas3],
       given: '$.paths[*][*]..parameters[*]',
       then: {
         function: schema,
@@ -191,7 +215,7 @@ export default {
       message: "No example or schema provided for {{property}}",
       description: 'To generate useful API reference documentation a sample request and response should be provided, which can either be provided statically as an "example", or tooling can infer a sample from the schema provided (and any examples, defaults, enums, etc. provided for each property). Please provide one or the other. Both would be fantastic.',
       severity: DiagnosticSeverity.Error,
-      format: [oas3],
+      formats: [oas3],
       given: '#MediaTypeObjects',
       then: {
         function: schema,
@@ -251,6 +275,5 @@ export default {
         },
       },
     },
-
   },
 };

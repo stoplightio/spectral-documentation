@@ -40,6 +40,6 @@ export function createWithRules(rules: (keyof Ruleset['rules'])[]): Spectral {
       return obj;
     }, {}),
   });
-
+  
   return s;
 }

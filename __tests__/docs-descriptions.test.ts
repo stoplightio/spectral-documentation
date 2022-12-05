@@ -6,29 +6,62 @@ testRule("docs-descriptions", [
 		name: "valid case",
 		document: {
 			openapi: "3.1.0",
-			info: { version: "1.0" },
-			paths: {
-				"/foo/{id}": {
-					get: {
-					},
-				},
-			},
+			info: { description: "Bla bla bla very interesting mmm yes" },
+			paths: {},
 		},
 		errors: [],
 	},
 
 	{
+		name: "invalid case: no info.description",
+		document: {
+			openapi: "3.1.0",
+			info: {},
+			paths: {},
+		},
+		errors: [
+			{
+				message: '"info.description" property must be truthy.',
+				path: ["info"],
+				severity: DiagnosticSeverity.Warning,
+			},
+			
+		],
+	},
+
+  {
 		name: "invalid if its an integer",
 		document: {
 			openapi: "3.1.0",
-			info: { version: "1.0" },
+			info: { description: "Bit short" },
 			paths: {
-				'/v1': {},
+				"/foo/{id}": {
+				},
 			},
 		},
 		errors: [
 			{
-				message: "#/info description missing ntains a version number. API paths SHOULD NOT have versioning in the path. It SHOULD be in the server URL instead.",
+				message: '"info.description" property must be longer than 20.',
+				path: ["info"],
+				severity: DiagnosticSeverity.Warning,
+			},
+			
+		],
+	},
+
+  {
+		name: "invalid if its an integer",
+		document: {
+			openapi: "3.1.0",
+			info: { description: "lower case looks funny for most documentation tools and they dont wanna mess with your strings" },
+			paths: {
+				"/foo/{id}": {
+				},
+			},
+		},
+		errors: [
+			{
+				message: '"info.description" property must be longer than 20.',
 				path: ["info"],
 				severity: DiagnosticSeverity.Warning,
 			},
