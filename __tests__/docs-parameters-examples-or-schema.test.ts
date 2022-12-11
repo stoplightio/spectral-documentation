@@ -3,7 +3,7 @@ import testRule from "./__helpers__/helper";
 
 testRule("docs-parameters-examples-or-schema", [
 	{
-		name: "invalid case",
+		name: "valid case",
 		document: {
 			openapi: "3.0.0",
 			info: {},

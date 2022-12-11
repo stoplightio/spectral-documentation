@@ -38,7 +38,6 @@ export default {
             '$.info',
             '$.tags[*]',
             '#OperationObject',
-            '$.paths[*][*].responses[*]',
             '$..parameters[?(@ && @.in)]',
             '$.components.schemas[*]',
             '$.servers[*]',
