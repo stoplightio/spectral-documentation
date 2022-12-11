@@ -46,20 +46,6 @@ export default {
       ]
     },
 
-    SharedSchemaObjects: {
-      description: "Shared schemas (a.k.a Models) are the main domain objects which are referenced elsewhere.",
-      targets: [
-        {
-          formats: [oas2],
-          given: ['$.definitions[*]'],
-        },
-        {
-          formats: [oas3],
-          given: ['$.components.schemas[*]'],
-        }
-      ]
-    },
-
     MediaTypeObjects: {
       description: "Media Type objects are what OpenAPI calls the object that describes requests and responses, or in OAS2 it was parameters with in=body.",
       targets: [
@@ -118,43 +104,6 @@ export default {
           }
         },
       ]
-    },
-    
-    /**
-     * @author: Phil Sturgeon <https://github.com/philsturgeon>
-     */
-    'docs-schema-description': {
-      message: "{{error}}.",
-      description: "API consumers have less context than the API developers, so providing high quality descriptions of shared schemas (a.k.a Models or Definitions) can help a lot. Explain what this schema is, in terms useful to an API consumer who might be coming across these terms for the first time, or might assume a different meaning to the one intended.",
-      severity: DiagnosticSeverity.Warning,
-      given: "#SharedSchemaObjects",
-      then: [
-        {
-          field: 'description',
-          function: truthy,
-        },
-        {
-          field: 'description',
-          function: length,
-          functionOptions: {
-            min: 20
-          }
-        },
-        {
-          field: 'description',
-          function: pattern,
-          functionOptions: {
-            match: '/^[A-Z]/'
-          }
-        },
-        {
-          field: 'description',
-          function: pattern,
-          functionOptions: {
-            match: '\\.$'
-          }
-        },
-      ],
     },
 
     'docs-info-contact': {
