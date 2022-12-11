@@ -87,7 +87,7 @@ export default {
     /**
      * @author: Phil Sturgeon <https://github.com/philsturgeon>
      */
-    'docs-descriptions': {
+    'docs-description': {
       message: "{{error}}.",
       description: "Documentation tools use description to provide more context to users of the API who are not as familiar with the concepts as the API designers are.",
       severity: DiagnosticSeverity.Warning,
@@ -125,7 +125,7 @@ export default {
      * @author: Phil Sturgeon <https://github.com/philsturgeon>
      */
     'docs-schema-description': {
-      message: "Schemas should contain descriptions.",
+      message: "{{error}}.",
       description: "API consumers have less context than the API developers, so providing high quality descriptions of shared schemas (a.k.a Models or Definitions) can help a lot. Explain what this schema is, in terms useful to an API consumer who might be coming across these terms for the first time, or might assume a different meaning to the one intended.",
       severity: DiagnosticSeverity.Warning,
       given: "#SharedSchemaObjects",
@@ -145,14 +145,14 @@ export default {
           field: 'description',
           function: pattern,
           functionOptions: {
-            match: '\.$'
+            match: '/^[A-Z]/'
           }
         },
         {
           field: 'description',
           function: pattern,
           functionOptions: {
-            match: '/^[A-Z]/'
+            match: '\\.$'
           }
         },
       ],
