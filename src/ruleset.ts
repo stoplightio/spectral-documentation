@@ -108,14 +108,14 @@ export default {
           field: 'description',
           function: pattern,
           functionOptions: {
-            match: '\.$'
+            match: '/^[A-Z]/'
           }
         },
         {
           field: 'description',
           function: pattern,
           functionOptions: {
-            match: '/^[A-Z]/'
+            match: '\\.$'
           }
         },
       ]
@@ -259,9 +259,25 @@ export default {
       },
     },
 
+    'docs-tags': {
+      description: 'Tags help group logic into conceptual groups instead of making end-users dig through URLs or lists of operation names.',
+      severity: DiagnosticSeverity.Warning,
+      given: '$',
+      then: {
+        field: 'tags',
+        function: schema,
+        functionOptions: {
+          schema: {
+            type: 'array',
+            minItems: 1,
+          },
+        },
+      },
+    },
+
     'docs-operation-tags': {
       message: 'Operation should have non-empty `tags` array.',
-      description: 'Tags help group logic into conceptual groups instead of making end-users dig through URLs or lists of operation names.',
+      description: 'Once tags are defined they should be references in the operation, otherwise they will not be doing anything.',
       severity: DiagnosticSeverity.Warning,
       given: '#OperationObject',
       then: {
