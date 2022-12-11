@@ -159,6 +159,7 @@ export default {
     },
 
     'docs-info-contact': {
+      message: '{{error}}.',
       description: 'Providing contact means that API consumers can get in touch with you, which can be confusing even if you all work at the same company. This could be a specific developer or a team, depending on the organization.',
       severity: DiagnosticSeverity.Warning,
       given: '$',
@@ -173,13 +174,12 @@ export default {
       description: 'In order to make a good sample request doc tools will need an x-example, default, enum, or maybe even a format. The more information you can provide the more useful the sample request will be.',
       severity: DiagnosticSeverity.Error,
       formats: [oas2],
-      // given: '$.paths[*][*]..parameters[?(@ && @.in != "body")]',
-      given: '$.paths[*][*]..parameters',
+      given: '$.paths[*]..parameters[?(@ && @.in != "body")]',
       then: {
         function: schema,
         functionOptions: {
           schema: {
-            oneOf: [
+            anyOf: [
               { required: ['x-example'] },
               { required: ['example'] },
               { required: ['default'] },
@@ -196,12 +196,12 @@ export default {
       description: 'Without providing a well defined schema or example(s) an API consumer will have a hard time knowing how to interact with this API.',
       severity: DiagnosticSeverity.Error,
       formats: [oas3],
-      given: '$.paths[*][*]..parameters[*]',
+      given: '$.paths[*]..parameters[*]',
       then: {
         function: schema,
         functionOptions: {
           schema: {
-            oneOf: [
+            anyOf: [
               { required: ['example'] },
               { required: ['examples'] },
               { required: ['schema'] },
@@ -221,7 +221,7 @@ export default {
         function: schema,
         functionOptions: {
           schema: {
-            oneOf: [
+            anyOf: [
               { required: ['example'] },
               { required: ['examples'] },
               { required: ['schema'] },
