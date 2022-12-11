@@ -1,7 +1,7 @@
 import { DiagnosticSeverity } from "@stoplight/types";
 import testRule from "./__helpers__/helper";
 
-testRule("docs-parameters-examples-or-schema", [
+testRule("docs-parameter-examples-or-schema", [
 	{
 		name: "valid case",
 		document: {

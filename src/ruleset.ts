@@ -139,7 +139,7 @@ export default {
       },
     },
 
-    'docs-parameters-examples-or-schema': {
+    'docs-parameter-examples-or-schema': {
       message: "No example or schema provided for {{property}}",
       description: 'Without providing a well defined schema or example(s) an API consumer will have a hard time knowing how to interact with this API.',
       severity: DiagnosticSeverity.Error,
@@ -159,7 +159,7 @@ export default {
       },
     },
 
-    'docs-media-types-examples-or-schema': {
+    'docs-media-type-examples-or-schema': {
       message: "No example or schema provided for {{property}}",
       description: 'To generate useful API reference documentation a sample request and response should be provided, which can either be provided statically as an "example", or tooling can infer a sample from the schema provided (and any examples, defaults, enums, etc. provided for each property). Please provide one or the other. Both would be fantastic.',
       severity: DiagnosticSeverity.Error,
