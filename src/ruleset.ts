@@ -73,7 +73,7 @@ export default {
      * @author: Phil Sturgeon <https://github.com/philsturgeon>
      */
     'docs-description': {
-      message: "{{error}}.",
+      message: "{{error}}",
       description: "Documentation tools use description to provide more context to users of the API who are not as familiar with the concepts as the API designers are.",
       severity: DiagnosticSeverity.Warning,
       given: "#DescribableObjects",
@@ -107,7 +107,7 @@ export default {
     },
 
     'docs-info-contact': {
-      message: '{{error}}.',
+      message: '{{error}}',
       description: 'Providing contact means that API consumers can get in touch with you, which can be confusing even if you all work at the same company. This could be a specific developer or a team, depending on the organization.',
       severity: DiagnosticSeverity.Warning,
       given: '$',

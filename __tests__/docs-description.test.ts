@@ -24,7 +24,7 @@ testRule("docs-description", [
 		},
 		errors: [
 			{
-				message: '"info.description" property must be truthy.',
+				message: '"info.description" property must be truthy',
 				path: ["info"],
 				severity: DiagnosticSeverity.Warning,
 			},
@@ -75,7 +75,7 @@ testRule("docs-description", [
 		},
 		errors: [
 			{
-				message: '"lower case looks funny for most documentation tools and they dont wanna mess with your strings." must match the pattern "/^[A-Z]/".',
+				message: '"lower case looks funny for most documentation tools and they dont wanna mess with your strings." must match the pattern "/^[A-Z]/"',
 				path: ["info", "description"],
 				severity: DiagnosticSeverity.Warning,
 			},
@@ -107,7 +107,7 @@ testRule("docs-description", [
 		},
 		errors: [
 			{
-				message: '"Descriptions are strings for humans, and they are sentences or paragaphs, so should end with a" must match the pattern "\\\\.$".',
+				message: '"Descriptions are strings for humans, and they are sentences or paragaphs, so should end with a" must match the pattern "\\\\.$"',
 				path: ["info", "description"],
 				severity: DiagnosticSeverity.Warning,
 			},
@@ -143,7 +143,7 @@ testRule("docs-description", [
 		},
 		errors: [
 			{
-				message: '"Tree.description" property must be truthy.',
+				message: '"Tree.description" property must be truthy',
 				path: ["components", "schemas", "Tree"],
 				severity: DiagnosticSeverity.Warning,
 			},
@@ -203,7 +203,7 @@ testRule("docs-description", [
 		},
 		errors: [
 			{
-				message: '"a sapling, whether its tree, or a shrub, woodland or hedgerow, its all a Tree." must match the pattern "/^[A-Z]/".',
+				message: '"a sapling, whether its tree, or a shrub, woodland or hedgerow, its all a Tree." must match the pattern "/^[A-Z]/"',
 				path: ["components", "schemas", "Tree", "description"],
 				severity: DiagnosticSeverity.Warning,
 			},
@@ -241,7 +241,7 @@ testRule("docs-description", [
 		},
 		errors: [
 			{
-				message: '"A sapling, whether its tree, or a shrub, woodland or hedgerow, its all a Tree" must match the pattern "\\\\.$".',
+				message: '"A sapling, whether its tree, or a shrub, woodland or hedgerow, its all a Tree" must match the pattern "\\\\.$"',
 				path: ["components", "schemas", "Tree", "description"],
 				severity: DiagnosticSeverity.Warning,
 			},

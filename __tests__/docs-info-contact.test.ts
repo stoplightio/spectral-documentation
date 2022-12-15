@@ -25,7 +25,7 @@ testRule("docs-info-contact", [
 		},
 		errors: [
 			{
-				message: '"info.contact" property must be truthy.',
+				message: '"info.contact" property must be truthy',
 				path: ["info"],
 				severity: DiagnosticSeverity.Warning,
 			},
