@@ -43,9 +43,7 @@ testRule("docs-description", [
 		},
 		errors: [
 			{
-        // TODO: Spectral bug, when its shorter than the minimum it says `must not be longer than` (not should go away)
-        // https://github.com/stoplightio/spectral/pull/2355
-				message: '"description" property must not be longer than 20.',
+				message: '"description" property must be longer than 20',
 				path: ["info", "description"],
 				severity: DiagnosticSeverity.Warning,
 			},
@@ -167,9 +165,7 @@ testRule("docs-description", [
 		},
 		errors: [
 			{
-        // TODO: Spectral bug, when its shorter than the minimum it says `must not be longer than` (not should go away)
-        // https://github.com/stoplightio/spectral/pull/2355
-				message: '"description" property must not be longer than 20.',
+				message: '"description" property must be longer than 20',
 				path: ["components", "schemas", "Tree", "description"],
 				severity: DiagnosticSeverity.Warning,
 			},
