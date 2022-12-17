@@ -64,7 +64,7 @@ testRule("docs-parameter-examples-or-schema", [
 		},
 		errors: [
 			{
-				message: 'No example or schema provided for 0',
+				message: 'No example or schema provided for 0.',
 				path: ["paths", "/user_busy_times", "get", "parameters", "0"],
 				severity: DiagnosticSeverity.Error,
 			},

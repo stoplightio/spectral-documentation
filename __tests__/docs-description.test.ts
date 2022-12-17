@@ -2,266 +2,280 @@ import { DiagnosticSeverity } from "@stoplight/types";
 import testRule from "./__helpers__/helper";
 
 testRule("docs-description", [
-  
   // -- info.description ---
 
-	{
-		name: "valid case: over 20 chars, upper first, and full stop at the end.",
-		document: {
-			openapi: "3.1.0",
-			info: { description: "Bla bla bla very interesting mmm yes." },
-			paths: {},
-		},
-		errors: [],
-	},
-
-	{
-		name: "invalid case: no info.description",
-		document: {
-			openapi: "3.1.0",
-			info: {},
-			paths: {},
-		},
-		errors: [
-			{
-				message: '"info.description" property must be truthy',
-				path: ["info"],
-				severity: DiagnosticSeverity.Warning,
-			},
-		],
-	},
-
   {
-		name: "invalid: shorter than 20 characters",
-		document: {
-			openapi: "3.1.0",
-			info: { description: "Bit short." },
-			paths: {
-				"/foo/{id}": {
-				},
-			},
-		},
-		errors: [
-			{
-				message: '"description" property must be longer than 20',
-				path: ["info", "description"],
-				severity: DiagnosticSeverity.Warning,
-			},
-		],
-	},
-
-  {
-		name: "valid: longer than 20 characters",
-		document: {
-			openapi: "3.1.0",
-			info: { description: "Bit short? Not anymore! Bahahah lots of wooooords." },
-			paths: {
-				"/foo/{id}": {
-				},
-			},
-		},
-		errors: [],
-	},
-
-  {
-		name: "invalid: description does not start capital letter",
-		document: {
-			openapi: "3.1.0",
-			info: { description: "lower case looks funny for most documentation tools and they dont wanna mess with your strings." },
-			paths: {
-				"/foo/{id}": {
-				},
-			},
-		},
-		errors: [
-			{
-				message: '"lower case looks funny for most documentation tools and they dont wanna mess with your strings." must match the pattern "/^[A-Z]/"',
-				path: ["info", "description"],
-				severity: DiagnosticSeverity.Warning,
-			},
-		],
-	},
-
-  {
-		name: "valid: description must start capital letter",
-		document: {
-			openapi: "3.1.0",
-			info: { description: "Upper case looks more human for most documentation tools as they dont wanna mess with your strings." },
-			paths: {
-				"/foo/{id}": {
-				},
-			},
-		},
+    name: "valid case: over 20 chars, upper first, and full stop at the end.",
+    document: {
+      openapi: "3.1.0",
+      info: { description: "Bla bla bla very interesting mmm yes." },
+      paths: {},
+    },
     errors: [],
-	},
+  },
 
   {
-		name: "invalid: description needs a full stop at the end",
-		document: {
-			openapi: "3.1.0",
-			info: { description: "Descriptions are strings for humans, and they are sentences or paragaphs, so should end with a" },
-			paths: {
-				"/foo/{id}": {
-				},
-			},
-		},
-		errors: [
-			{
-				message: '"Descriptions are strings for humans, and they are sentences or paragaphs, so should end with a" must match the pattern "\\\\.$"',
-				path: ["info", "description"],
-				severity: DiagnosticSeverity.Warning,
-			},
-		],
-	},
+    name: "invalid case: no info.description",
+    document: {
+      openapi: "3.1.0",
+      info: {},
+      paths: {},
+    },
+    errors: [
+      {
+        message: '"info.description" property must be truthy.',
+        path: ["info"],
+        severity: DiagnosticSeverity.Warning,
+      },
+    ],
+  },
 
   {
-		name: "valid: description has a full stop at the end",
-		document: {
-			openapi: "3.1.0",
-			info: { description: "Descriptions are strings for humans, and they are sentences or paragaphs, so should end with a '.'." },
-			paths: {
-				"/foo/{id}": {
-				},
-			},
-		},
+    name: "invalid: shorter than 20 characters",
+    document: {
+      openapi: "3.1.0",
+      info: { description: "Bit short." },
+      paths: {
+        "/foo/{id}": {},
+      },
+    },
+    errors: [
+      {
+        message: '"description" property must be longer than 20.',
+        path: ["info", "description"],
+        severity: DiagnosticSeverity.Warning,
+      },
+    ],
+  },
+
+  {
+    name: "valid: longer than 20 characters",
+    document: {
+      openapi: "3.1.0",
+      info: {
+        description: "Bit short? Not anymore! Bahahah lots of wooooords.",
+      },
+      paths: {
+        "/foo/{id}": {},
+      },
+    },
     errors: [],
-	},
+  },
+
+  {
+    name: "invalid: description does not start capital letter",
+    document: {
+      openapi: "3.1.0",
+      info: {
+        description:
+          "lower case looks funny for most documentation tools and they dont wanna mess with your strings.",
+      },
+      paths: {
+        "/foo/{id}": {},
+      },
+    },
+    errors: [
+      {
+        message:
+          '"lower case looks funny for most documentation tools and they dont wanna mess with your strings." must match the pattern "/^[A-Z]/".',
+        path: ["info", "description"],
+        severity: DiagnosticSeverity.Warning,
+      },
+    ],
+  },
+
+  {
+    name: "valid: description must start capital letter",
+    document: {
+      openapi: "3.1.0",
+      info: {
+        description:
+          "Upper case looks more human for most documentation tools as they dont wanna mess with your strings.",
+      },
+      paths: {
+        "/foo/{id}": {},
+      },
+    },
+    errors: [],
+  },
+
+  {
+    name: "invalid: description needs a full stop at the end",
+    document: {
+      openapi: "3.1.0",
+      info: {
+        description:
+          "Descriptions are strings for humans, and they are sentences or paragaphs, so should end with a",
+      },
+      paths: {
+        "/foo/{id}": {},
+      },
+    },
+    errors: [
+      {
+        message:
+          '"Descriptions are strings for humans, and they are sentences or paragaphs, so should end with a" must match the pattern "\\\\.$".',
+        path: ["info", "description"],
+        severity: DiagnosticSeverity.Warning,
+      },
+    ],
+  },
+
+  {
+    name: "valid: description has a full stop at the end",
+    document: {
+      openapi: "3.1.0",
+      info: {
+        description:
+          "Descriptions are strings for humans, and they are sentences or paragaphs, so should end with a '.'.",
+      },
+      paths: {
+        "/foo/{id}": {},
+      },
+    },
+    errors: [],
+  },
 
   // -- schema description --
 
   {
-		name: "invalid case: no description",
-		document: {
-			openapi: "3.1.0",
-			info: { description: "Bla bla bla very interesting mmm yes." },
-			components: {
+    name: "invalid case: no description",
+    document: {
+      openapi: "3.1.0",
+      info: { description: "Bla bla bla very interesting mmm yes." },
+      components: {
         schemas: {
-          Tree: {
-          }
-        }
+          Tree: {},
+        },
       },
-		},
-		errors: [
-			{
-				message: '"Tree.description" property must be truthy',
-				path: ["components", "schemas", "Tree"],
-				severity: DiagnosticSeverity.Warning,
-			},
-		],
-	},
+    },
+    errors: [
+      {
+        message: '"Tree.description" property must be truthy.',
+        path: ["components", "schemas", "Tree"],
+        severity: DiagnosticSeverity.Warning,
+      },
+    ],
+  },
 
   {
-		name: "invalid: shorter than 20 characters",
-		document: {
-			openapi: "3.1.0",
-			info: { description: "Bla bla bla very interesting mmm yes." },
-			components: {
-        schemas: {
-          Tree: {
-            description: 'Its a tree genius.'
-          }
-        }
-      },
-		},
-		errors: [
-			{
-				message: '"description" property must be longer than 20',
-				path: ["components", "schemas", "Tree", "description"],
-				severity: DiagnosticSeverity.Warning,
-			},
-		],
-	},
-
-  {
-		name: "valid: longer than 20 characters",
-		document: {
-			openapi: "3.1.0",
-			info: { description: "Bla bla bla very interesting mmm yes." },
+    name: "invalid: shorter than 20 characters",
+    document: {
+      openapi: "3.1.0",
+      info: { description: "Bla bla bla very interesting mmm yes." },
       components: {
         schemas: {
           Tree: {
-            description: 'A sapling, whether its tree, or a shrub, woodland or hedgerow, its all a Tree.'
-          }
-        }
+            description: "Its a tree genius.",
+          },
+        },
       },
-		},
-		errors: [],
-	},
+    },
+    errors: [
+      {
+        message: '"description" property must be longer than 20.',
+        path: ["components", "schemas", "Tree", "description"],
+        severity: DiagnosticSeverity.Warning,
+      },
+    ],
+  },
 
   {
-		name: "invalid: description should start with capital letter",
-		document: {
-			openapi: "3.1.0",
-			info: { description: "Bla bla bla very interesting mmm yes." },
+    name: "valid: longer than 20 characters",
+    document: {
+      openapi: "3.1.0",
+      info: { description: "Bla bla bla very interesting mmm yes." },
       components: {
         schemas: {
           Tree: {
-            description: 'a sapling, whether its tree, or a shrub, woodland or hedgerow, its all a Tree.'
-          }
-        }
+            description:
+              "A sapling, whether its tree, or a shrub, woodland or hedgerow, its all a Tree.",
+          },
+        },
       },
-		},
-		errors: [
-			{
-				message: '"a sapling, whether its tree, or a shrub, woodland or hedgerow, its all a Tree." must match the pattern "/^[A-Z]/"',
-				path: ["components", "schemas", "Tree", "description"],
-				severity: DiagnosticSeverity.Warning,
-			},
-		],
-	},
-
-  {
-		name: "valid: description must start capital letter",
-		document: {
-			openapi: "3.1.0",
-			info: { description: "Bla bla bla very interesting mmm yes." },
-      components: {
-        schemas: {
-          Tree: {
-            description: 'A sapling, whether its tree, or a shrub, woodland or hedgerow, its all a Tree.'
-          }
-        }
-      },
-		},
+    },
     errors: [],
-	},
+  },
 
   {
-		name: "invalid: description needs a full stop at the end",
-		document: {
-			openapi: "3.1.0",
-			info: { description: "Bla bla bla very interesting mmm yes." },
+    name: "invalid: description should start with capital letter",
+    document: {
+      openapi: "3.1.0",
+      info: { description: "Bla bla bla very interesting mmm yes." },
       components: {
         schemas: {
           Tree: {
-            description: 'A sapling, whether its tree, or a shrub, woodland or hedgerow, its all a Tree'
-          }
-        }
+            description:
+              "a sapling, whether its tree, or a shrub, woodland or hedgerow, its all a Tree.",
+          },
+        },
       },
-		},
-		errors: [
-			{
-				message: '"A sapling, whether its tree, or a shrub, woodland or hedgerow, its all a Tree" must match the pattern "\\\\.$"',
-				path: ["components", "schemas", "Tree", "description"],
-				severity: DiagnosticSeverity.Warning,
-			},
-		],
-	},
+    },
+    errors: [
+      {
+        message:
+          '"a sapling, whether its tree, or a shrub, woodland or hedgerow, its all a Tree." must match the pattern "/^[A-Z]/".',
+        path: ["components", "schemas", "Tree", "description"],
+        severity: DiagnosticSeverity.Warning,
+      },
+    ],
+  },
 
   {
-		name: "valid: description has a full stop at the end",
-		document: {
-			openapi: "3.1.0",
-			info: { description: "Bla bla bla very interesting mmm yes." },
+    name: "valid: description must start capital letter",
+    document: {
+      openapi: "3.1.0",
+      info: { description: "Bla bla bla very interesting mmm yes." },
       components: {
         schemas: {
           Tree: {
-            description: 'A sapling, whether its tree, or a shrub, woodland or hedgerow, its all a Tree.'
-          }
-        }
+            description:
+              "A sapling, whether its tree, or a shrub, woodland or hedgerow, its all a Tree.",
+          },
+        },
       },
-		},
+    },
     errors: [],
-	},
+  },
 
+  {
+    name: "invalid: description needs a full stop at the end",
+    document: {
+      openapi: "3.1.0",
+      info: { description: "Bla bla bla very interesting mmm yes." },
+      components: {
+        schemas: {
+          Tree: {
+            description:
+              "A sapling, whether its tree, or a shrub, woodland or hedgerow, its all a Tree",
+          },
+        },
+      },
+    },
+    errors: [
+      {
+        message:
+          '"A sapling, whether its tree, or a shrub, woodland or hedgerow, its all a Tree" must match the pattern "\\\\.$".',
+        path: ["components", "schemas", "Tree", "description"],
+        severity: DiagnosticSeverity.Warning,
+      },
+    ],
+  },
+
+  {
+    name: "valid: description has a full stop at the end",
+    document: {
+      openapi: "3.1.0",
+      info: { description: "Bla bla bla very interesting mmm yes." },
+      components: {
+        schemas: {
+          Tree: {
+            description:
+              "A sapling, whether its tree, or a shrub, woodland or hedgerow, its all a Tree.",
+          },
+        },
+      },
+    },
+    errors: [],
+  },
 ]);

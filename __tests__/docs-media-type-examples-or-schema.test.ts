@@ -87,7 +87,7 @@ testRule("docs-media-type-examples-or-schema", [
     },
     errors: [
       {
-        message: "No example or schema provided for application/json",
+        message: "No example or schema provided for application/json.",
         path: [
           "paths",
           "/organization/invitees",
@@ -100,7 +100,7 @@ testRule("docs-media-type-examples-or-schema", [
         severity: DiagnosticSeverity.Error,
       },
       {
-        message: "No example or schema provided for application/json",
+        message: "No example or schema provided for application/json.",
         path: [
           "paths",
           "/organization/invitees",
