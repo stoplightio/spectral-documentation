@@ -278,4 +278,119 @@ testRule("docs-description", [
     },
     errors: [],
   },
+
+  // --- parameter examples ---
+
+  {
+    name: "valid top level path parameters",
+    document: {
+      swagger: "2.0",
+      paths: {
+        "/todos": {
+          parameters: [
+            {
+              name: "limit",
+              in: "query",
+              description: "This is how it works.",
+              type: "integer",
+            },
+          ],
+        },
+      },
+    },
+    errors: [],
+  },
+
+  {
+    name: "valid operation level parameters",
+    document: {
+      swagger: "2.0",
+      paths: {
+        "/todos": {
+          get: {
+            description: "Should be present here too since we look for it.",
+            parameters: [
+              {
+                name: "limit",
+                in: "query",
+                description: "This is how it works.",
+                type: "integer",
+              },
+            ],
+          },
+        },
+      },
+    },
+    errors: [],
+  },
+
+  {
+    name: "invalid case: top level path parameter description is missing",
+    document: {
+      swagger: "2.0",
+      paths: {
+        "/todos": {
+          parameters: [
+            {
+              name: "limit",
+              in: "query",
+              type: "integer",
+            },
+          ],
+        },
+      },
+    },
+    errors: [
+      {
+        message: '"[0].description" property must be truthy.',
+        path: ["paths", "/todos", "parameters", "0"],
+        severity: DiagnosticSeverity.Warning,
+      },
+    ],
+  },
+
+  {
+    name: "invalid case: operation level parameter description is missing",
+    document: {
+      swagger: "2.0",
+      paths: {
+        "/todos": {
+          get: {
+            description: "Should be present here too since we look for it.",
+            parameters: [
+              {
+                name: "limit",
+                in: "query",
+                type: "integer",
+              },
+            ],
+          },
+        },
+      },
+    },
+    errors: [
+      {
+        message: '"[0].description" property must be truthy.',
+        path: ["paths", "/todos", "get", "parameters", "0"],
+        severity: DiagnosticSeverity.Warning,
+      },
+    ],
+  },
+
+  {
+    name: "does not throw on refs",
+    document: {
+      swagger: "2.0",
+      paths: {
+        "/todos": {
+          parameters: [
+            {
+              $ref: "#/parameters/limit",
+            },
+          ],
+        },
+      },
+    },
+    errors: [],
+  },
 ]);
