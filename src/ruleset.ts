@@ -205,9 +205,9 @@ export default {
     },
 
     "docs-operationId-valid-in-url": {
-      message: "operationId must be URL friendly.",
+      message: "operationId must only contain URL friendly characters.",
       description:
-        "Most documentation tools use the operationId to produce URLs, so the characters used must be URL friendly.",
+        "Most documentation tools use the operationId to produce URLs, so the characters used must be safe and legal when used in the URL.",
       severity: DiagnosticSeverity.Error,
       given: "#OperationObject",
       then: {
