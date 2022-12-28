@@ -132,7 +132,7 @@ export default {
     },
 
     "docs-api-host-not-example": {
-      message: "Host URL must not point at example.com.",
+      message: "Host URL should not point at example.com.",
       description:
         "People will want to know where your amazing API is hosted, and it's probably not on example.com.",
       severity: DiagnosticSeverity.Warning,
@@ -141,6 +141,22 @@ export default {
       given: "$",
       then: {
         field: "host",
+        function: pattern,
+        functionOptions: {
+          notMatch: "example\\.com",
+        },
+      },
+    },
+
+    "docs-api-server-not-example.com": {
+      message: "Server URL should not point at example.com.",
+      description:
+        "People will want to know where your amazing API is hosted, and it's probably not on example.com.",
+      severity: DiagnosticSeverity.Warning,
+      recommended: false,
+      formats: [oas3],
+      given: "$.servers[*].url",
+      then: {
         function: pattern,
         functionOptions: {
           notMatch: "example\\.com",
