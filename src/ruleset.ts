@@ -74,6 +74,63 @@ export default {
   },
 
   rules: {
+    "docs-api-host": {
+      message: "API host must be present and non-empty string.",
+      description:
+        "People will want to know where your amazing API is hosted, and this property can show them.",
+      severity: DiagnosticSeverity.Warning,
+      formats: [oas2],
+      given: "$",
+      then: {
+        field: "host",
+        function: truthy,
+      },
+    },
+    "docs-api-schemes": {
+      message: "API schemes should be present and non-empty array.",
+      description:
+        "Knowing if the API is available on https-only, http-only, or both, is useful information for API consumers.",
+      severity: DiagnosticSeverity.Warning,
+      formats: [oas2],
+      given: "$",
+      then: {
+        field: "schemes",
+        function: schema,
+        functionOptions: {
+          dialect: "draft7",
+          schema: {
+            items: {
+              type: "string",
+            },
+            minItems: 1,
+            type: "array",
+          },
+        },
+      },
+    },
+    "docs-api-servers": {
+      message: "API servers should be present and non-empty array.",
+      description:
+        "People will want to know where your amazing API is hosted, and this property can show them.",
+      severity: DiagnosticSeverity.Warning,
+      formats: [oas3],
+      given: "$",
+      then: {
+        field: "servers",
+        function: schema,
+        functionOptions: {
+          dialect: "draft7",
+          schema: {
+            items: {
+              type: "object",
+            },
+            minItems: 1,
+            type: "array",
+          },
+        },
+      },
+    },
+
     /**
      * @author: Phil Sturgeon <https://github.com/philsturgeon>
      */
