@@ -131,6 +131,23 @@ export default {
       },
     },
 
+    "docs-api-host-not-example": {
+      message: "Host URL must not point at example.com.",
+      description:
+        "People will want to know where your amazing API is hosted, and it's probably not on example.com.",
+      severity: DiagnosticSeverity.Warning,
+      recommended: false,
+      formats: [oas2],
+      given: "$",
+      then: {
+        field: "host",
+        function: pattern,
+        functionOptions: {
+          notMatch: "example\\.com",
+        },
+      },
+    },
+
     /**
      * @author: Phil Sturgeon <https://github.com/philsturgeon>
      */
