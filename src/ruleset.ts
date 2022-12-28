@@ -220,6 +220,7 @@ export default {
     },
 
     "docs-tags": {
+      message: "{{error}}.",
       description:
         "Tags help group logic into conceptual groups instead of making end-users dig through URLs or lists of operation names.",
       severity: DiagnosticSeverity.Warning,
