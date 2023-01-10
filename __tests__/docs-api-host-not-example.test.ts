@@ -21,7 +21,7 @@ testRule("docs-api-host-not-example", [
     },
     errors: [
       {
-        message: "Host URL must not point at example.com.",
+        message: "Host URL should not point at example.com.",
         path: ["host"],
         severity: DiagnosticSeverity.Warning,
       },
