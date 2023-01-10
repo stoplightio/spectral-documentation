@@ -32,8 +32,9 @@ export default {
             "$.info",
             "$.tags[*]",
             "#OperationObject",
-            "$.paths[*][*].responses[*]",
-            "$.paths..parameters[?(@ && @.in)]",
+            "#OperationObject.responses[*]",
+            "#PathItem.parameters[?(@ && @.in)]",
+            "#OperationObject.parameters[?(@ && @.in)]",
             "$.definitions[*]",
           ],
         },
@@ -43,7 +44,9 @@ export default {
             "$.info",
             "$.tags[*]",
             "#OperationObject",
-            "$.paths..parameters[?(@ && @.in)]",
+            "#OperationObject.responses[*]",
+            "#PathItem.parameters[?(@ && @.in)]",
+            "#OperationObject.parameters[?(@ && @.in)]",
             "$.components.schemas[*]",
             "$.servers[*]",
           ],
@@ -58,15 +61,15 @@ export default {
         {
           formats: [oas2],
           given: [
-            '$.paths[*][*]..parameters[?(@ && @.in == "body")]',
-            "$.paths[*][*].responses[*]",
+            '#OperationObject.parameters[?(@ && @.in === "body")]',
+            "#OperationObject.responses[*]",
           ],
         },
         {
           formats: [oas3],
           given: [
-            "$.paths[*][*].requestBody.content[*]",
-            "$.paths[*][*].responses[*].content[*]",
+            "#OperationObject.requestBody.content[*]",
+            "#OperationObject.responses[*].content[*]",
           ],
         },
       ],
@@ -220,7 +223,10 @@ export default {
         "In order to make a good sample request doc tools will need an x-example, default, enum, or maybe even a format. The more information you can provide the more useful the sample request will be.",
       severity: DiagnosticSeverity.Error,
       formats: [oas2],
-      given: '$.paths[*]..parameters[?(@ && @.in != "body")]',
+      given: [
+        '#PathItem.parameters[?(@ && @.in !== "body")]',
+        '#OperationObject.parameters[?(@ && @.in !== "body")]'
+      ],
       then: {
         function: schema,
         functionOptions: {
