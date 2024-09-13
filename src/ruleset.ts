@@ -200,7 +200,7 @@ export default {
           field: "description",
           function: patternWithoutMd,
           functionOptions: {
-            matsadach: "\\.$",
+            match: "\\.$",
           },
         },
       ],
