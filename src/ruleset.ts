@@ -188,20 +188,6 @@ export default {
             min: 20,
           },
         },
-        {
-          field: "description",
-          function: pattern,
-          functionOptions: {
-            match: "/^[A-Z]/",
-          },
-        },
-        {
-          field: "description",
-          function: pattern,
-          functionOptions: {
-            match: "\\.$",
-          },
-        },
       ],
     },
 
