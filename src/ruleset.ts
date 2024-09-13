@@ -7,6 +7,7 @@ import {
 } from "@stoplight/spectral-functions";
 import { oas2, oas3 } from "@stoplight/spectral-formats";
 import { DiagnosticSeverity } from "@stoplight/types";
+import patternWithoutMd from "./functions/patternWithoutMd";
 
 export default {
   // extends: [
@@ -190,14 +191,14 @@ export default {
         },
         {
           field: "description",
-          function: pattern,
+          function: patternWithoutMd,
           functionOptions: {
             match: "/^[A-Z]/",
           },
         },
         {
           field: "description",
-          function: pattern,
+          function: patternWithoutMd,
           functionOptions: {
             match: "\\.$",
           },

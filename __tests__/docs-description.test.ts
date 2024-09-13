@@ -376,6 +376,58 @@ testRule("docs-description", [
       },
     ],
   },
+  {
+    name: "valid: description with markdown, properly formatted after stripping markdown",
+    document: {
+      openapi: "3.1.0",
+      info: {
+        description:
+          "**Bold** _Italic_ `code` is used to format _human-readable_ documentation that follows the rules.",
+      },
+      paths: {},
+    },
+    errors: [],
+  },
+  
+  {
+    name: "invalid: description with markdown, but starts with a lowercase letter",
+    document: {
+      openapi: "3.1.0",
+      info: {
+        description:
+          "**bold** _Italic_ should start with a capital letter after removing markdown.",
+      },
+      paths: {},
+    },
+    errors: [
+      {
+        message:
+          '"**bold** _Italic_ should start with a capital letter after removing markdown." must match the pattern "/^[A-Z]/".',
+        path: ["info", "description"],
+        severity: DiagnosticSeverity.Warning,
+      },
+    ],
+  },
+  
+  {
+    name: "invalid: description with markdown, but missing full stop at the end",
+    document: {
+      openapi: "3.1.0",
+      info: {
+        description:
+          "Descriptions with **bold**, _italic_, and other markdown need a full stop at the end",
+      },
+      paths: {},
+    },
+    errors: [
+      {
+        message:
+          '"Descriptions with **bold**, _italic_, and other markdown need a full stop at the end" must match the pattern "\\\\.$".',
+        path: ["info", "description"],
+        severity: DiagnosticSeverity.Warning,
+      },
+    ],
+  },
 
   {
     name: "does not throw on refs",
